@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Asset.create(name: 'Microsoft Word', asset_id: '123456789')
+Asset.create(name: 'Windows 8.1', asset_id: '3390765')
+Asset.create(name: 'Photoshop', asset_id: '74193871')
