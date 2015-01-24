@@ -1,0 +1,20 @@
+<h1>Wildcard</h1>
+<hr />
+
+<div class='row'>
+  <div class='large-6 large-centered columns'>
+    <h3>First Method</h3>
+    <%= form_tag root_path, method: :get, data: {remote: true} do %>
+      <label>
+        <%= check_box_tag :authorized, true, false, class: 'authorized' %>
+        User is authorized?
+      </label>
+
+      <%= text_field_tag :name, params[:name], class: 'name', placeholder: 'Name' %>
+    <% end %>
+
+    <ul class='ajax-container'>
+      <%= render decorate(@assets) %>
+    <ul>
+  </div>
+</div>
