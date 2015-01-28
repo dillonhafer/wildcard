@@ -17,17 +17,6 @@
 
 $(function() {
   $(document).foundation()
-
-  $(document).on('change', '#authorized', function() {
-    if (this.checked) {
-      $('#name').attr('placeholder', 'Name or Asset Id')
-    } else {
-      $('#name').attr('placeholder', 'Name')
-    }
-    $(this).parent().submit()
-  })
-
-  $(document).on('keyup', '#name', function() {
-    $(this).parent().submit()
-  })
+  $(".authorized-name").tokenInput("/name-autocomplete?authorized=true", {theme: 'facebook'});
+  $(".unauthorized-name").tokenInput("/name-autocomplete?authorized=false", {theme: 'facebook'});
 })

@@ -16,3 +16,8 @@
  *= require foundation_and_overrides
 
  */
+
+input, input:focus {
+  box-shadow: none !important;
+  border-color: none !important;
+}
