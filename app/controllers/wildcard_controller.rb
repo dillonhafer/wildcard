@@ -1,26 +1,23 @@
 class WildcardController < ApplicationController
-  before_filter :select_user, :fields_for_user
+  def search
+    @assets = Asset.none
 
-  def index
-    @assets = Asset.order(:name)
-    if params[:name].present?
-      @assets = @assets.search_in_fields(@fields, params[:name].downcase)
+    if params[:ids].present?
+      ids = params[:ids].split(',').map(&:to_i)
+      @assets = decorate(Asset.where("id in (?)", ids))
     end
+  end
+
+  def name_autocomplete
+    assets = Asset.search_in_fields(allowed_fields, params[:q].downcase)
+    render json: decorate(assets)
   end
 
   private
 
-  def fields_for_user
-    @fields = [:name]
-    @fields << :asset_id if User.current_user.see_asset_id?
-    @fields
-  end
-
-  def select_user
-    if params[:authorized] && params[:authorized] == 'true'
-      User.current_user = authorized_user
-    else
-      User.current_user = unauthorized_user
-    end
+  def allowed_fields
+    fields = [:name]
+    fields << :asset_id if current_user.see_asset_id?
+    fields
   end
 end
