@@ -13,6 +13,7 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'awesome_print'
 end
 
 group :production do
