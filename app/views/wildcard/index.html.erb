@@ -2,19 +2,43 @@
 <hr />
 
 <div class='row'>
-  <div class='large-6 large-centered columns'>
-    <h3>First Method</h3>
-    <%= form_tag root_path, method: :get, data: {remote: true} do %>
-      <label>
-        <%= check_box_tag :authorized, true, false, class: 'authorized' %>
-        User is authorized?
-      </label>
+  <div class='large-6 columns'>
+    <%= form_tag search_path, method: :get, data: {remote: true} do %>
+      <%= hidden_field_tag :authorized, true %>
+      <div class='row'>
+        <div class='large-8 columns'>
+          <h4>
+            Authorized User
+          </h4>
+        </div>
+        <div class='large-4 columns'>
+          <%= submit_tag 'Search', class: 'tiny button radius' %>
+        </div>
+      </div>
 
-      <%= text_field_tag :name, params[:name], class: 'name', placeholder: 'Name' %>
+      <%= text_field_tag :ids, params[:ids], placeholder: 'Name', class: 'authorized-name' %>
     <% end %>
 
-    <ul class='ajax-container'>
-      <%= render decorate(@assets) %>
-    <ul>
+    <ul class='ajax-container-auth-true'><ul>
+  </div>
+
+  <div class='large-6 columns'>
+    <%= form_tag search_path, method: :get, data: {remote: true} do %>
+      <%= hidden_field_tag :authorized, false %>
+      <div class='row'>
+        <div class='large-8 columns'>
+          <h4>
+            Unauthorized User
+          </h4>
+        </div>
+        <div class='large-4 columns'>
+          <%= submit_tag 'Search', class: 'tiny button radius' %>
+        </div>
+      </div>
+
+      <%= text_field_tag :ids, params[:ids], placeholder: 'Name', class: 'unauthorized-name' %>
+    <% end %>
+
+    <ul class='ajax-container-auth-false'><ul>
   </div>
 </div>
