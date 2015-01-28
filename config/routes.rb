@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root 'wildcard#index'
+  get '/search' => 'wildcard#search'
+  get '/name-autocomplete' => 'wildcard#name_autocomplete'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
