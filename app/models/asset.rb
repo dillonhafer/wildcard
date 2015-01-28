@@ -1,9 +1,9 @@
 class Asset < ActiveRecord::Base
-  scope :search_in_fields, -> (fields=[], word) {
-    sql = []
+  def self.search_in_fields(fields, word)
+    field_filter_sql = []
     fields.each do |f|
-      sql.push("LOWER(#{f}) LIKE :word")
+      field_filter_sql << "LOWER(#{f}) LIKE :word"
     end
-    where(sql.join(' OR '), word: word)
-  }
+    where(field_filter_sql.join(' OR '), word: word)
+  end
 end
