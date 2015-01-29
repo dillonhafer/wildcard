@@ -40,6 +40,8 @@ class User
 end
 ```
 
+## Solution
+
 ### Our first step will be to combine the fields' output if the current_user is authorized to do so.
 
 The best way to combine these fields for viewing would be to use the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern).
@@ -79,7 +81,7 @@ end
 Then in our views we can refer to the name property as normal:
 
 ```erb
-<h1><%= @record.name %></h1>
+<h1><%= decorate(@record).name %></h1>
 
 to produce
 
@@ -91,5 +93,3 @@ or
 ```
 
 ### Our second step will be to allow authorized users to search by multiple fields.
-
-## Solution
