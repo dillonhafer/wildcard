@@ -133,3 +133,7 @@ class ApplicationRecord < ActiveRecord::Base
   end
 end
 ```
+
+This method will create a LIKE statement for each field allowed, and use the given word as the criteria.
+
+Now if an authorized user types an asset_id into the name search field, our action will search against multiple fields.
