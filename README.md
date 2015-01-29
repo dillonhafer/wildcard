@@ -12,7 +12,7 @@ Sample Record:
 record = ApplicationRecord.first
 
 record.name
-#=> "Microsoft word"
+#=> "Microsoft Word"
 
 record.asset_id
 #=> "123456789"
@@ -25,9 +25,10 @@ This means the below search terms should return the above asset:
 
 ## Problem
 
-We have a case where two fields should be combined wherever the item is displayed. For instance, an ApplicationRecord's name
-and its asset_id. Users should be able to use the asset_id or name interchangeably in any tokenizer. The name and asset_id should be displayed everywhere the name is displayed. This includes the index filter
-pages. As an added requirement, this combined output to be visible for users with certain roles – AccountOwner and BcTeam.
+We have a case where two fields should be combined wherever the item is displayed. For instance, an **ApplicationRecord**'s `name`
+and its `asset_id`. Users should be able to use the `asset_id` or `name` interchangeably in any tokenizer. The `name` and `asset_id`
+should be displayed everywhere the `name` is displayed. This includes the index filter pages. As an added requirement, this
+combined output to be visible for users with certain roles – AccountOwner and BcTeam.
 
 **NOTE:** We have a method to access a user's permissions:
 
