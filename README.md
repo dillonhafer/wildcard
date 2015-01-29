@@ -40,9 +40,41 @@ class User
 end
 ```
 
-### Our first step will be to combine the fields' output if the `current_user` is authorized to do so.
+### Our first step will be to combine the fields' output if the current_user is authorized to do so.
 
 The best way to combine these fields for viewing would be to use the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern).
+This will be a very easy to do with a decorator and the `little_decorator` gem:
+
+```ruby
+class AssetDecorator < LittleDecorator
+  def name
+    if current_user.see_asset_id?
+      "#{model.name} (#{model.asset_id})"
+    else
+      model.name
+    end
+  end
+end
+```
+
+This will allow us to view the combined fields when rendering results, but we also want the JSON for our autocomplete API to return combined
+fields as well. We can add the following method as well:
+
+```ruby
+class AssetDecorator < LittleDecorator
+  def name
+    if current_user.see_asset_id?
+      "#{model.name} (#{model.asset_id})"
+    else
+      model.name
+    end
+  end
+
+  def as_json(options={})
+    {id: model.id, name: name}
+  end
+end
+```
 
 ### Our second step will be to allow authorized users to search by multiple fields.
 
