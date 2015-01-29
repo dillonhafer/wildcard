@@ -43,7 +43,7 @@ end
 ### Our first step will be to combine the fields' output if the current_user is authorized to do so.
 
 The best way to combine these fields for viewing would be to use the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern).
-This will be a very easy to do with a decorator and the `little_decorator` gem:
+This will be very easy to do with a decorator and the `little_decorator` gem:
 
 ```ruby
 class AssetDecorator < LittleDecorator
@@ -74,6 +74,20 @@ class AssetDecorator < LittleDecorator
     {id: model.id, name: name}
   end
 end
+```
+
+Then in our views we can refer to the name property as normal:
+
+```erb
+<h1><%= @record.name %></h1>
+
+to produce
+
+<h1>Mircosoft Word</h1>
+
+or
+
+<h1>Microsoft Word (123456789)</h1>
 ```
 
 ### Our second step will be to allow authorized users to search by multiple fields.
