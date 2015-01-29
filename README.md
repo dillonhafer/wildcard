@@ -96,8 +96,8 @@ or
 #### Our second step will be to allow authorized users to search by multiple fields.
 
 This one gets a little more complicated. Seeing that the current user can search by different fields depending on his roles, we need a way
-to retrieve those authorized fields. That way an authorized user may search by a record's name *OR* asset_id, while an unauthorized user only
-the name field.
+to retrieve those authorized fields. That way an authorized user may search by a record's `name` *OR* `asset_id`, while an unauthorized user only
+the `name` field.
 
 In our search controller we have an action that responds with JSON for our autocomplete api to use:
 
@@ -121,7 +121,7 @@ end
 For the sake of clarity our `allowed_fields` method is directly in the controller, but if want to use this functionality elsewhere, it would
 be better to add this logic directly to our User model, given also the logic would be more complex.
 
-As you can see in our `name_autocomplete` action, we've added a method that takes an array of fields and a search term to use against those
+As you can see in our `name_autocomplete` action, we've added a method (`search_in_fields`) that takes an array of fields and a search term to use against those
 fields.
 
 Then in our class method, we can search each field that was passed in for the occurance of our word:
@@ -137,4 +137,4 @@ end
 
 This method will create a LIKE statement for each field allowed, and use the given word as the criteria.
 
-Now if an authorized user types an asset_id into the name search field, our action will search against multiple fields.
+Now if an authorized user types an `asset_id` into the `name` search field, our action will search against both (or multiple) fields.
