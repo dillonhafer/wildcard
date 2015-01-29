@@ -128,10 +128,7 @@ Then in our class method, we can search each field that was passed in for the oc
 ```ruby
 class ApplicationRecord < ActiveRecord::Base
   def self.search_in_fields(fields, word)
-    field_filter_sql = []
-    fields.each do |f|
-      field_filter_sql << "LOWER(#{f}) LIKE :word"
-    end
+    field_filter_sql = fields.map { |f| "LOWER(#{f}) LIKE :word" }
     where(field_filter_sql.join(' OR '), word: word)
   end
 end
