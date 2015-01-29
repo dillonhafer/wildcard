@@ -94,7 +94,7 @@ or
 
 #### Our second step will be to allow authorized users to search by multiple fields.
 
-This one gets a little more complicated. Seeing that the current user can have different search fields depending on his roles, we need a way
+This one gets a little more complicated. Seeing that the current user can search by different fields depending on his roles, we need a way
 to retrieve those authorized fields. That way an authorized user may search by a record's name *OR* asset_id, while an unauthorized user only
 the name field.
 
@@ -123,3 +123,14 @@ be better to add this logic directly to our User model, given also the logic wou
 As you can see in our `name_autocomplete` action, we've added a method that takes an array of fields and a search term to use against those
 fields.
 
+Then in our class method, we can search each field that was passed in for the occurance of our word:
+
+```ruby
+def self.search_in_fields(fields, word)
+  field_filter_sql = []
+  fields.each do |f|
+    field_filter_sql << "LOWER(#{f}) LIKE :word"
+  end
+  where(field_filter_sql.join(' OR '), word: word)
+end
+```
