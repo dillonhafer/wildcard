@@ -42,7 +42,7 @@ end
 
 ## Solution
 
-### Our first step will be to combine the fields' output if the current_user is authorized to do so.
+#### Our first step will be to combine the fields' output if the current_user is authorized to do so.
 
 The best way to combine these fields for viewing would be to use the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern).
 This will be very easy to do with a decorator and the `little_decorator` gem:
@@ -92,4 +92,4 @@ or
 <h1>Microsoft Word (123456789)</h1>
 ```
 
-### Our second step will be to allow authorized users to search by multiple fields.
+#### Our second step will be to allow authorized users to search by multiple fields.
