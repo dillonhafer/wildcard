@@ -28,7 +28,7 @@ This means the below search terms should return the above asset:
 We have a case where two fields should be combined wherever the item is displayed. For instance, an **ApplicationRecord**'s `name`
 and its `asset_id`. Users should be able to use the `asset_id` or `name` interchangeably in any tokenizer. The `name` and `asset_id`
 should be displayed everywhere the `name` is displayed. This includes the index filter pages. As an added requirement, this
-combined output to be visible for users with certain roles – AccountOwner and BcTeam.
+combined output should only be visible for users with certain roles – **AccountOwner** and **BcTeam**.
 
 **NOTE:** We have a method to access a user's permissions:
 
@@ -46,7 +46,7 @@ end
 #### Our first step will be to combine the fields' output if the current_user is authorized to do so.
 
 The best way to combine these fields for viewing would be to use the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern).
-This will be very easy to do with a decorator and the `little_decorator` gem:
+This will be very easy to do with a decorator and the [little_decorator](http://hashrocket.com/blog/posts/little-decorator-gem-rails-model-decoration-in-42-lines) gem:
 
 ```ruby
 class AssetDecorator < LittleDecorator
@@ -61,7 +61,7 @@ end
 ```
 
 This will allow us to view the combined fields when rendering results, but we also want the JSON for our autocomplete API to return combined
-fields as well. We can add the following method as well:
+fields as well. We can add the following `as_json` method:
 
 ```ruby
 class AssetDecorator < LittleDecorator
