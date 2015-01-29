@@ -93,3 +93,33 @@ or
 ```
 
 #### Our second step will be to allow authorized users to search by multiple fields.
+
+This one gets a little more complicated. Seeing that the current user can have different search fields depending on his roles, we need a way
+to retrieve those authorized fields. That way an authorized user may search by a record's name *OR* asset_id, while an unauthorized user only
+the name field.
+
+In our search controller we have an action that responds with JSON for our autocomplete api to use:
+
+```ruby
+class SearchController < ApplicationController
+  def name_autocomplete
+    assets = ApplicationRecord.search_in_fields(allowed_fields, params[:q].downcase)
+    render json: decorate(assets)
+  end
+
+  private
+
+  def allowed_fields
+    fields = [:name]
+    fields << :asset_id if current_user.see_asset_id?
+    fields
+  end
+end
+```
+
+For the sake of clarity our `allowed_fields` method is directly in the controller, but if want to use this functionality elsewhere, it would
+be better to add this logic directly to our User model, given also the logic would be more complex.
+
+As you can see in our `name_autocomplete` action, we've added a method that takes an array of fields and a search term to use against those
+fields.
+
