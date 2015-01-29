@@ -9,7 +9,7 @@ So you can do “Cor%” to find “Corey”.
 
 Sample Record:
 ```ruby
-record = Asset.first
+record = ApplicationRecord.first
 
 record.name
 #=> "Microsoft word"
@@ -25,13 +25,25 @@ This means the below search terms should return the above asset:
 
 ## Problem
 
-We have a case where two fields should be combined wherever the item is displayed. For instance, an Application’s name
-and its AssetID. Users should be able to use the AssetID or name interchangeably in any tokenizer. The Name and AssetID
-should be displayed everywhere the name is displayed. This includes the index filter pages. As an added requirement,
-this combined output to be visible for users with certain roles – AccountOwner and BcTeam.
+We have a case where two fields should be combined wherever the item is displayed. For instance, an ApplicationRecord's name
+and its asset_id. Users should be able to use the asset_id or name interchangeably in any tokenizer. The name and asset_id should be displayed everywhere the name is displayed. This includes the index filter
+pages. As an added requirement, this combined output to be visible for users with certain roles – AccountOwner and BcTeam.
+
+**NOTE:** We have a method to access a user's permissions:
+
+```ruby
+class User
+  def see_asset_id?
+    # permitted = ['AccountOwner', 'BcTeam']
+    (roles & permitted).any?
+  end
+end
+```
+
+### Our first step will be to combine the fields' output if the `current_user` is authorized to do so.
+
+The best way to combine these fields for viewing would be to use the [decorator pattern](https://en.wikipedia.org/wiki/Decorator_pattern).
+
+### Our second step will be to allow authorized users to search by multiple fields.
 
 ## Solution
-
-
-
-## Action
