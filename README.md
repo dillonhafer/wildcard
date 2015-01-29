@@ -19,9 +19,9 @@ record.asset_id
 ```
 
 This means the below search terms should return the above asset:
-`"Microsoft %"`
-`"%Word%"`
-`"%123456789"`
+* `"Microsoft %"`
+* `"%Word%"`
+* `"%123456789"`
 
 ## Problem
 
